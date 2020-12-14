@@ -2,7 +2,7 @@ from utils import SENDToQt
 
 class DetCustomized:
 	def __init__(self):
-		self.default_path = "model.pth"
+		self.default_path = "det.pth"
 		self.label = []
 		self.training_results = {"ave classification loss": [], "ave objectness loss": [], "ave iou loss": []}
 

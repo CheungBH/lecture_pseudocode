@@ -2,7 +2,7 @@ from utils import SENDToQt
 
 class ClsCustomized:
 	def __init__(self):
-		self.default_model_path = "model.pth"
+		self.default_model_path = "CNN.pth"
 		self.label = []
 		self.training_log = {"training acc": [], "training loss": [], "validation acc": [], "validation loss": []}
 

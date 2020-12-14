@@ -7,6 +7,7 @@ Demo
 5. Continue running visualize() or visualize_webcam() or plot()
 6. Run reset(), the whole system will be only trainable.
 
+
 Customized
 1. Directly run visualize() or visualize_webcam() or plot(), fatal results will be generated.
 2. Trainable with train(), the data will be trained and the model will be generated in corresponding places.
