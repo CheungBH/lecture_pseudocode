@@ -1,6 +1,7 @@
 from utils import SENDToQt
 import time
 import cv2
+import numpy as np
 
 
 class DemoQtPython:
@@ -23,6 +24,7 @@ class DemoQtPython:
     def visualize_video(self, video_path="0"):
         stop = False
         cap = cv2.VideoCapture(video_path)
+        height, width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         while True:
             ret, frame = cap.read()
             if ret:
@@ -30,9 +32,13 @@ class DemoQtPython:
                 SENDToQt(result_mat, wk=100)
                 if stop:
                     cap.release()
+                    img_black = np.full((height, width, 3), 0).astype(np.uint8)
+                    SENDToQt(img_black, wk=0)
                     break
             else:
                 cap.release()
+                img_black = np.full((height, width, 3), 0).astype(np.uint8)
+                SENDToQt(img_black, wk=0)
                 break
 
 
