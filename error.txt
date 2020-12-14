@@ -1,0 +1,5 @@
+0： Successful
+-1: Model error
+-2: Image error
+-3: Training data format error
+-4: Connection error
