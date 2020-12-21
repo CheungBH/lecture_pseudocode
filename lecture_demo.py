@@ -9,7 +9,7 @@ class DemoQtPython:
         self.default_model_path = "model.pth"
         self.label = []
 
-    def train(self, epochs, img_path):
+    def train(self, epochs, img_path, model_path="model.pth"):
         stop = False
         for epoch in range(epochs):
             time.sleep(1)
@@ -19,12 +19,12 @@ class DemoQtPython:
             if stop:
                 break
 
-    def visualize(self, img_path):
+    def visualize(self, img_path, model_path="model.pth"):
         img_mat = cv2.imread(img_path)
         result_mat = cv2.flip(img_mat, 1)
         SendToQt(result_mat)
 
-    def visualize_video(self, video_path=0):
+    def visualize_video(self, video_path=0, model_path="model.pth"):
         stop = False
         cap = cv2.VideoCapture(video_path)
         height, width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -46,6 +46,6 @@ class DemoQtPython:
 
 if __name__ == '__main__':
     demo = DemoQtPython()
-    demo.train(20, "dalk")
+    demo.train(1, "dalk")
     demo.visualize("demo/horse.jpg")
     demo.visualize_video("demo/ice.mp4")
