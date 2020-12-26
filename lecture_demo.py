@@ -19,6 +19,25 @@ class DemoQtPython:
             if stop:
                 break
 
+    def plot(self):
+        import matplotlib.pyplot as plt
+
+        x_data = ['2011', '2012', '2013', '2014', '2015', '2016', '2017']
+        y_data = [58000, 60200, 63000, 71000, 84000, 90500, 107000]
+        y_data2 = [52000, 54200, 51500, 58300, 56800, 59500, 62700]
+
+        ln1, = plt.plot(x_data, y_data, color='red', linewidth=2.0, linestyle='--')
+        ln2, = plt.plot(x_data, y_data2, color='blue', linewidth=3.0, linestyle='-.')
+
+        plt.title("test")  # 设置标题及字体
+
+        plt.legend(handles=[ln1, ln2], labels=['1', '2'])
+        ax = plt.gca()
+        ax.spines['right'].set_color('none')  # right边框属性设置为none 不显示
+        ax.spines['top'].set_color('none')  # top边框属性设置为none 不显示
+        plt.savefig('image.jpg')
+        # plt.show()
+
     def visualize(self, img_path, model_path="model.pth"):
         img_mat = cv2.imread(img_path)
         result_mat = cv2.flip(img_mat, 1)
@@ -46,6 +65,7 @@ class DemoQtPython:
 
 if __name__ == '__main__':
     demo = DemoQtPython()
-    demo.train(1, "dalk")
-    demo.visualize("demo/horse.jpg")
-    demo.visualize_video("demo/ice.mp4")
+    demo.plot()
+    # demo.train(1, "dalk")
+    # demo.visualize("demo/horse.jpg")
+    # demo.visualize_video("demo/ice.mp4")
