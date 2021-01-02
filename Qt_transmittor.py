@@ -8,6 +8,3 @@ def SendToQt(msg, wk=0):
 		cv2.imshow("result", msg)
 		cv2.waitKey(wk)
 
-
-def AcceptFromQt(msg):
-	return msg

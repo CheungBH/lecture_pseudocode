@@ -1,13 +1,17 @@
-from utils import SENDToQt
+from Qt_transmittor import SendToQt
+import cv2
+import os
+
 
 class DetDemo:
 	def __init__(self):
 		self.level = -1
 		self.model_path = {0: "", 1: "", 2: "", ...  9: ""}
-		self.label = # fruit label
+		self.label = 1# fruit label
+		self.stop = False
 		self.training_log = {"ave classification loss": [], "ave objectness loss": [], "ave iou loss": []}
 
-	def train(epochs, img_path, model_path=None):
+	def train(self, epochs, img_path, model_path=None):
 		self.training_log = {"ave classification loss": [], "ave objectness loss": [], "ave iou loss": []}
 		if not check_format_det(img_path):
 			return -3
@@ -16,7 +20,7 @@ class DetDemo:
 		self.level = determine_level(img_num * epochs)
 
 		for epoch in epochs:
-			SENDTOQt("ave classification loss: XXX, ave objectness loss: XXX, ave iou loss: XXX")
+			SendToQt("ave classification loss: XXX, ave objectness loss: XXX, ave iou loss: XXX")
 			self.training_log["ave classification loss"].append(cls_loss)
 			self.training_log["ave objectness loss"].append(obj_loss)
 			self.training_log["ave iou loss"].append(iou_loss)
@@ -26,11 +30,11 @@ class DetDemo:
 			move_model(model_path, self.level)
 
 
-	def plot():
+	def plot(self):
 		plot_img = plot_graph_det(self.training_log)
-		SENDTOQt(plot_img)
+		SendToQt(plot_img)
 
-	def visualize(img_path, model_path=None):
+	def visualize(self, img_path, model_path=None):
 		if self.level < 0:
 			return -1
 		img_mat = cv2.imread(img_path)
@@ -40,9 +44,10 @@ class DetDemo:
 			model = load_model(self.model_path[self.level])
 		pred = model(img_mat)
 		result_img = plot_vis_det(pred, self.label)
-		SENDTOQt(plot_img)
+		SendToQt(plot_img)
 
-	def visulize_webcam(model_path=None):
+	def visulize_webcam(self, model_path=None):
+		self.stop = False
 		if self.level < 0:
 			return -1
 		if model_path:
@@ -53,12 +58,12 @@ class DetDemo:
 			img_mat = capture(0)
 			pred = model(img_mat)
 			result_img = plot_vis_det(pred, self.label)
-			SENDTOQt(plot_img)
-			if stop:
+			SendToQt(plot_img)
+			if self.stop:
 				break
 		return 0
 
-	def reset():
+	def reset(self):
 		self.level = -1
 
 

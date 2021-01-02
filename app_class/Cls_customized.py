@@ -1,12 +1,15 @@
-from utils import SENDToQt
+from Qt_transmittor import SendToQt
+import cv2
+import os
 
 class ClsCustomized:
 	def __init__(self):
 		self.default_model_path = "CNN.pth"
 		self.label = []
+		self.stop = False
 		self.training_log = {"training acc": [], "training loss": [], "validation acc": [], "validation loss": []}
 
-	def train(epochs, img_path, model_path=self.default_model_path):
+	def train(self, epochs, img_path, model_path=None):
 		if not check_format_cls(img_path):
 			return -3
 
@@ -18,7 +21,7 @@ class ClsCustomized:
 		self.training_log = {"training acc": [], "training loss": [], "validation acc": [], "validation loss": []}
 		for epoch in epochs:
 			for inputs, labels in data_loader:
-				SENDTOQt("Training loss: XXX, Training acc: XXX")
+				SendToQt("Training loss: XXX, Training acc: XXX")
 				time.sleep()
 				self.training_log["training acc"].append(acc)
 				self.training_log["training loss"].append(acc)
@@ -28,32 +31,33 @@ class ClsCustomized:
 		return 0
 
 
-	def plot():
+	def plot(self):
 		plot_img = plot_graph(self.training_results)
-		SENDTOQt(plot_img)
+		SendToQt(plot_img)
 
-	def visualize(img_path, model_path=self.default_model_path):
+	def visualize(self, img_path, model_path=None):
 		# try:
 		img_mat = cv2.imread(img_path)
 		# except:
 		# 	return -2
-		if not os.path.exist(model_path):
+		if not os.path.exists(model_path):
 			return -1
 		pred = model(img_mat)
 		result_img = plot_vis_cls(pred, self.label)
-		SENDTOQt(plot_img)
+		SendToQt(plot_img)
 		return 0
 
-	def visulize_webcam(model_path=self.default_model_path)
-		if not os.path.exist(model_path):
+	def visualize_webcam(self, model_path=None):
+		self.stop = False
+		if not os.path.exists(model_path):
 			return -1
 		# try:
 		while True:
 			img_mat = capture(0)
 			pred = model(img_mat)
 			result_img = plot_vis_cls(pred, self.label)
-			SENDTOQt(plot_img)
-			if stop:
+			SendToQt(plot_img)
+			if self.stop:
 				break
 		# except:
 		# 	return -2
