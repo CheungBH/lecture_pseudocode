@@ -41,6 +41,9 @@ class PythonAcceptor:
     def set_webcam_stop(self):
         self.fruit.stop = True
         self.catdog.stop = True
+        self.det.stop = True
+        self.person.stop = True
+        self.cls.stop = True
 
     def run(self):
         if self.signal[0] == "1":
@@ -95,7 +98,7 @@ class PythonAcceptor:
 
         else:
             pass
-        
+
         self.signal = "00"
 
 
