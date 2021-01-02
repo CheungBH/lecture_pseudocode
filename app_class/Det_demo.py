@@ -46,7 +46,7 @@ class DetDemo:
 		result_img = plot_vis_det(pred, self.label)
 		SendToQt(plot_img)
 
-	def visulize_webcam(self, model_path=None):
+	def visualize_webcam(self, model_path=None):
 		self.stop = False
 		if self.level < 0:
 			return -1
